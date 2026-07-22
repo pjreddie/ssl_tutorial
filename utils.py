@@ -1,6 +1,16 @@
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
+from torch.optim.lr_scheduler import SequentialLR, LinearLR, CosineAnnealingLR
+
+def CosineWithWarmup(optimizer, warmup=1000, total_steps=2000):
+    return SequentialLR(
+        optimizer,
+        schedulers=[
+            LinearLR(optimizer, 0.01, 1.0, warmup),
+            CosineAnnealingLR(optimizer, total_steps-warmup, 1e-6)
+        ],
+        milestones=[warmup])
 
 def imshow(img):
     npimg = img.numpy()
