@@ -3,10 +3,10 @@
 # host_notebook.sh — serve this repo from a Beaker session so Google Colab
 # can connect to it as a "local runtime".
 #
-# One-time per session: create the session with a port mapping for 8888:
+# One-time per session: create the session with a port mapping for 8765:
 #
 #   beaker session create --remote --bare --cluster ai2/<cluster> \
-#       --gpus 1 --port 8888 --name "colab-jupyter-$(whoami)"
+#       --gpus 1 --port 8765 --name "colab-jupyter-$(whoami)"
 #
 # Then inside the session:
 #
@@ -22,7 +22,7 @@
 
 set -euo pipefail
 
-PORT="${PORT:-8888}"
+PORT="${PORT:-8765}"
 cd "$(dirname "$0")"
 
 # Colab's file browser expects a content/ dir in the server's working directory.
