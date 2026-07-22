@@ -60,7 +60,9 @@ except Exception:
 ")" || true
 fi
 
+# Use the short hostname only — the .reviz.ai2.in FQDN routes traffic externally.
 NODE="${BEAKER_NODE_HOSTNAME:-<node-hostname>}"
+NODE="${NODE%%.*}"
 
 echo "======================================================================"
 if [ -n "$HOST_PORT" ]; then
