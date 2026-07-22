@@ -68,9 +68,7 @@ def visualize_data(dataloader, classes=None):
     grid = grid * NORM_STD + NORM_MEAN
     imshow(grid)
 
-if __name__ == "__main__":
-    pass
-    # visualize_data(cifar10['train'], cifar10['classes'])
+# visualize_data(cifar10['train'], cifar10['classes'])
 
 
 # %%
@@ -134,8 +132,7 @@ torch.seed()
 
 # %%
 from torchinfo import summary
-if __name__ == "__main__":
-    summary(vit_cifar10)
+summary(vit_cifar10)
 
 # %%
 from torch.optim.lr_scheduler import SequentialLR, LinearLR, CosineAnnealingLR
@@ -201,11 +198,9 @@ def train_classification(model, train_loader, val_loader, epochs, lr=0.002):
 
 
 # %%
-if __name__ == "__main__":
-    train_classification(vit_cifar10, cifar10['train'], cifar10['test'], 30)
+train_classification(vit_cifar10, cifar10['train'], cifar10['test'], 30)
 
 # %%
-from imagenet32 import ImageNet32
 
 def get_imagenet32_data(root='./data/imagenet32/'):
     # Data augmentation transformations. Not for Testing!
@@ -235,18 +230,17 @@ def get_imagenet32_data(root='./data/imagenet32/'):
 
 # %%
 
-if __name__ == "__main__":
-    imagenet32 = get_imagenet32_data()
-    # visualize_data(imagenet32['train'], imagenet32['classes'])
-    torch.manual_seed(1234)
-    vit_imagenet32 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=1000)
-    torch.seed()
-    train_classification(vit_imagenet32, imagenet32['train'], imagenet32['test'], 5)
+imagenet32 = get_imagenet32_data()
+# visualize_data(imagenet32['train'], imagenet32['classes'])
+torch.manual_seed(1234)
+vit_imagenet32 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=1000)
+torch.seed()
+train_classification(vit_imagenet32, imagenet32['train'], imagenet32['test'], 5)
 
-    vit_inet_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
-    vit_inet_cifar10.tokenizer = vit_imagenet32.tokenizer
-    vit_inet_cifar10.encoder = vit_imagenet32.encoder
-    train_classification(vit_inet_cifar10, cifar10['train'], cifar10['test'], 30)
+vit_inet_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
+vit_inet_cifar10.tokenizer = vit_imagenet32.tokenizer
+vit_inet_cifar10.encoder = vit_imagenet32.encoder
+train_classification(vit_inet_cifar10, cifar10['train'], cifar10['test'], 30)
 
 
 
@@ -337,16 +331,15 @@ def train_autoencoder(model, train_loader, epochs=1, lr=0.002, warmup=2000):
 
 # %%
 
-if __name__ == "__main__":
-    torch.manual_seed(1234)
-    vit_ae = ViTAutoEncoder(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, z_dim=8)
-    torch.seed()
-    train_autoencoder(vit_ae, imagenet32['train'], 5)
+torch.manual_seed(1234)
+vit_ae = ViTAutoEncoder(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, z_dim=8)
+torch.seed()
+train_autoencoder(vit_ae, imagenet32['train'], 5)
 
-    vit_ae_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
-    vit_ae_cifar10.tokenizer = vit_ae.tokenizer
-    vit_ae_cifar10.encoder = vit_ae.encoder
-    train_classification(vit_ae_cifar10, cifar10['train'], cifar10['test'], 30)
+vit_ae_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
+vit_ae_cifar10.tokenizer = vit_ae.tokenizer
+vit_ae_cifar10.encoder = vit_ae.encoder
+train_classification(vit_ae_cifar10, cifar10['train'], cifar10['test'], 30)
 
 # %%
 
@@ -432,16 +425,15 @@ def train_masked_autoencoder(model, train_loader, epochs=1, lr=0.002, warmup=200
 
 # %%
 
-if __name__ == "__main__":
-    torch.manual_seed(1234)
-    vit_mae = ViTMaskedAutoEncoder(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512)
-    torch.seed()
-    train_masked_autoencoder(vit_mae, imagenet32['train'], 5, mask_ratio=0.5)
+torch.manual_seed(1234)
+vit_mae = ViTMaskedAutoEncoder(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512)
+torch.seed()
+train_masked_autoencoder(vit_mae, imagenet32['train'], 5, mask_ratio=0.5)
 
-    vit_mae_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
-    vit_mae_cifar10.tokenizer = vit_mae.tokenizer
-    vit_mae_cifar10.encoder = vit_mae.encoder
-    train_classification(vit_mae_cifar10, cifar10['train'], cifar10['test'], 30)
+vit_mae_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
+vit_mae_cifar10.tokenizer = vit_mae.tokenizer
+vit_mae_cifar10.encoder = vit_mae.encoder
+train_classification(vit_mae_cifar10, cifar10['train'], cifar10['test'], 30)
 
 # %%
 
@@ -515,16 +507,15 @@ def train_contrastive(model, train_loader, epochs=1, lr=0.002, warmup=2000, mask
 
 # %%
 
-if __name__ == "__main__":
-    torch.manual_seed(1234)
-    vit_contrastive = ViTMaskedEncoder(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512)
-    torch.seed()
-    train_contrastive(vit_contrastive, imagenet32['train'], 5, mask_ratio=0.75)
+torch.manual_seed(1234)
+vit_contrastive = ViTMaskedEncoder(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512)
+torch.seed()
+train_contrastive(vit_contrastive, imagenet32['train'], 5, mask_ratio=0.75)
 
-    vit_contrastive_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
-    vit_contrastive_cifar10.tokenizer = vit_contrastive.tokenizer
-    vit_contrastive_cifar10.encoder = vit_contrastive.encoder
-    train_classification(vit_contrastive_cifar10, cifar10['train'], cifar10['test'], 30)
+vit_contrastive_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
+vit_contrastive_cifar10.tokenizer = vit_contrastive.tokenizer
+vit_contrastive_cifar10.encoder = vit_contrastive.encoder
+train_classification(vit_contrastive_cifar10, cifar10['train'], cifar10['test'], 30)
 
 # %%
 
@@ -621,26 +612,24 @@ def train_latent_mim(model, train_loader, epochs=1, lr=0.002, warmup=2000, mask_
 
 # %%
 
-if __name__ == "__main__":
-    torch.manual_seed(1234)
-    vit_latentmim = ViTLatentMIM(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512)
-    torch.seed()
-    train_latent_mim(vit_latentmim, imagenet32['train'], 5, mask_ratio=0.75)
+torch.manual_seed(1234)
+vit_latentmim = ViTLatentMIM(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512)
+torch.seed()
+train_latent_mim(vit_latentmim, imagenet32['train'], 5, mask_ratio=0.75)
 
-    vit_latentmim_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
-    vit_latentmim_cifar10.tokenizer = vit_latentmim.tokenizer
-    vit_latentmim_cifar10.encoder = vit_latentmim.encoder
-    train_classification(vit_latentmim_cifar10, cifar10['train'], cifar10['test'], 30)
+vit_latentmim_cifar10 = ViT(image_size=32, patch_size=4, dim=128, depth=5, heads=8, mlp_dim=512, num_classes=10)
+vit_latentmim_cifar10.tokenizer = vit_latentmim.tokenizer
+vit_latentmim_cifar10.encoder = vit_latentmim.encoder
+train_classification(vit_latentmim_cifar10, cifar10['train'], cifar10['test'], 30)
 
 
 
 
 # %%
 
-if __name__ == "__main__":
-    models = {'supervised': vit_cifar10, 'imagenet32': vit_inet_cifar10,
-              'autoencoder': vit_ae_cifar10, 'masked autoencoder': vit_mae_cifar10,
-              'contrastive': vit_contrastive_cifar10, 'latent mim': vit_latentmim_cifar10}
-    for name, m in models.items():
-        print(f'{name}: {accuracy(m, cifar10["test"]):.4f}')
+models = {'supervised': vit_cifar10, 'imagenet32': vit_inet_cifar10,
+          'autoencoder': vit_ae_cifar10, 'masked autoencoder': vit_mae_cifar10,
+          'contrastive': vit_contrastive_cifar10, 'latent mim': vit_latentmim_cifar10}
+for name, m in models.items():
+    print(f'{name}: {accuracy(m, cifar10["test"]):.4f}')
 
