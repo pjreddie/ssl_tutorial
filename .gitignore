@@ -1,0 +1,27 @@
+# Datasets (4+ GB, downloadable)
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model checkpoints / experiment outputs
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+runs/
+wandb/
+
+# macOS
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
