@@ -34,7 +34,7 @@ def get_cifar10_data():
         transforms.Normalize(NORM_MEAN, NORM_STD),
     ])
 
-    trainset = torchvision.datasets.CIFAR10(root='./data/cifar/', transform=augment, download=True)
+    trainset = torchvision.datasets.CIFAR10(root='./data/cifar10/', transform=augment, download=True)
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=256, shuffle=True,
                                               num_workers=12, persistent_workers=True, pin_memory=True)
 
@@ -42,7 +42,7 @@ def get_cifar10_data():
         transforms.ToTensor(),
         transforms.Normalize(NORM_MEAN, NORM_STD),
     ])
-    testset = torchvision.datasets.CIFAR10(root='./data/cifar/', train=False, transform=test_transform, download=True)
+    testset = torchvision.datasets.CIFAR10(root='./data/cifar10/', train=False, transform=test_transform, download=True)
     testloader = torch.utils.data.DataLoader(testset, batch_size=256, shuffle=False,
                                              num_workers=4, persistent_workers=True, pin_memory=True)
 
